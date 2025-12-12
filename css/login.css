@@ -1,0 +1,472 @@
+/* ==========================================================================
+   Sistema de Agendamento - SEE/PB
+   Login Styles
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Variables
+   -------------------------------------------------------------------------- */
+:root {
+    --azul-governo: #1e3a5f;
+    --azul-escuro: #0d1b2a;
+    --azul-medio: #2d5a87;
+    --dourado: #c9a227;
+    --dourado-claro: #e8c547;
+    --branco: #ffffff;
+    --cinza-claro: #f5f7fa;
+    --cinza-texto: #64748b;
+    --erro: #dc2626;
+    --sucesso: #16a34a;
+}
+
+/* --------------------------------------------------------------------------
+   Reset & Base
+   -------------------------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-governo) 50%, var(--azul-medio) 100%);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Padrão geométrico de fundo */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(30deg, rgba(255,255,255,0.02) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.02) 87.5%),
+        linear-gradient(150deg, rgba(255,255,255,0.02) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.02) 87.5%),
+        linear-gradient(30deg, rgba(255,255,255,0.02) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.02) 87.5%),
+        linear-gradient(150deg, rgba(255,255,255,0.02) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.02) 87.5%);
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Branding Side (Left)
+   -------------------------------------------------------------------------- */
+.branding-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    position: relative;
+    color: var(--branco);
+}
+
+.branding-content {
+    max-width: 480px;
+    text-align: center;
+}
+
+/* Governo Badge */
+.governo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 50px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+.governo-badge svg {
+    width: 32px;
+    height: 32px;
+}
+
+.governo-badge span {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Branding Title */
+.branding-title {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.branding-title span {
+    color: var(--dourado);
+}
+
+.branding-subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    margin-bottom: 50px;
+}
+
+/* --------------------------------------------------------------------------
+   Features List
+   -------------------------------------------------------------------------- */
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateX(5px);
+}
+
+.feature-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-claro));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.feature-icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--azul-escuro);
+}
+
+.feature-text {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Login Side (Right)
+   -------------------------------------------------------------------------- */
+.login-side {
+    width: 520px;
+    min-height: 100vh;
+    background: var(--branco);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+}
+
+.login-side::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--dourado), var(--dourado-claro), var(--dourado));
+}
+
+/* Login Header */
+.login-header {
+    margin-bottom: 40px;
+}
+
+.login-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--azul-escuro);
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    font-size: 15px;
+    color: var(--cinza-texto);
+}
+
+/* --------------------------------------------------------------------------
+   Form Styles
+   -------------------------------------------------------------------------- */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--azul-escuro);
+}
+
+/* Input Wrapper */
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper svg {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--cinza-texto);
+    transition: color 0.3s ease;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 16px 16px 16px 50px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: var(--cinza-claro);
+}
+
+.input-wrapper input:focus {
+    border-color: var(--azul-governo);
+    background: var(--branco);
+    box-shadow: 0 0 0 4px rgba(30, 58, 95, 0.1);
+}
+
+.input-wrapper input:focus + svg,
+.input-wrapper:focus-within svg {
+    color: var(--azul-governo);
+}
+
+.input-wrapper input::placeholder {
+    color: #94a3b8;
+}
+
+/* Password Toggle */
+.password-toggle {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: var(--cinza-texto);
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: var(--azul-governo);
+}
+
+/* --------------------------------------------------------------------------
+   Form Options
+   -------------------------------------------------------------------------- */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.remember-me input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--azul-governo);
+    cursor: pointer;
+}
+
+.remember-me span {
+    font-size: 14px;
+    color: var(--cinza-texto);
+}
+
+.forgot-password {
+    font-size: 14px;
+    color: var(--azul-governo);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: var(--azul-medio);
+    text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn-login {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: var(--branco);
+    background: linear-gradient(135deg, var(--azul-governo), var(--azul-medio));
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 58, 95, 0.3);
+}
+
+.btn-login:hover::before {
+    left: 100%;
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--cinza-texto);
+    font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+/* Gov Button */
+.btn-gov {
+    width: 100%;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: var(--azul-governo);
+    background: var(--branco);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-gov:hover {
+    border-color: var(--azul-governo);
+    background: var(--cinza-claro);
+}
+
+.btn-gov svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Login Footer
+   -------------------------------------------------------------------------- */
+.login-footer {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.login-footer p {
+    font-size: 13px;
+    color: var(--cinza-texto);
+}
+
+.login-footer a {
+    color: var(--azul-governo);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .branding-side {
+        display: none;
+    }
+
+    .login-side {
+        width: 100%;
+        min-height: 100vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-side {
+        padding: 40px 24px;
+    }
+
+    .login-header h1 {
+        font-size: 24px;
+    }
+
+    .form-options {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+}
