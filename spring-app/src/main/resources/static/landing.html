@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Sistema de Agendamento - Secretaria de Estado da Educação da Paraíba. Gerencie compromissos, reuniões e eventos de forma integrada.">
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sistema de Agendamento - SEE/PB">
+    <meta property="og:description" content="Plataforma integrada para gestão de agendas da Secretaria de Estado da Educação da Paraíba">
+    <meta property="og:type" content="website">
+
+    <title>Sistema de Agendamento | Secretaria da Educação - Governo da Paraíba</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e3a5f' stroke-width='2'><path d='M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3'/></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>
+                    </svg>
+                    <div class="logo-text">
+                        <span class="logo-title">SEE-PB</span>
+                        <span class="logo-subtitle">Agendamento</span>
+                    </div>
+                </a>
+
+                <nav class="nav" aria-label="Menu principal">
+                    <a href="#recursos" class="nav-link">Recursos</a>
+                    <a href="#como-funciona" class="nav-link">Como Funciona</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="index.html" class="btn btn-outline">Entrar</a>
+                    <button class="mobile-menu-btn" aria-label="Abrir menu" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" aria-hidden="true">
+        <nav class="mobile-nav">
+            <a href="#recursos" class="mobile-nav-link">Recursos</a>
+            <a href="#como-funciona" class="mobile-nav-link">Como Funciona</a>
+            <a href="#contato" class="mobile-nav-link">Contato</a>
+            <a href="index.html" class="btn btn-primary btn-full">Entrar no Sistema</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-pattern"></div>
+            <div class="hero-gradient"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    <span>Plataforma Oficial do Governo da Paraíba</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Gestão de Agendas<br>
+                    <span>Simplificada e Integrada</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Sistema oficial da Secretaria de Estado da Educação para gerenciamento
+                    de compromissos, reuniões e eventos dos secretários e gestores.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="index.html" class="btn btn-primary btn-lg">
+                        <span>Acessar Sistema</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                    <a href="#como-funciona" class="btn btn-ghost btn-lg">
+                        <span>Saiba Mais</span>
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Usuários Ativos</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-number">10k+</span>
+                        <span class="stat-label">Agendamentos</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Disponibilidade</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-card hero-card-main">
+                    <div class="card-header">
+                        <div class="card-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="card-title">Agenda do Dia</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="agenda-item">
+                            <div class="agenda-time">09:00</div>
+                            <div class="agenda-info">
+                                <div class="agenda-title">Reunião de Planejamento</div>
+                                <div class="agenda-meta">Sala de Reuniões A</div>
+                            </div>
+                            <div class="agenda-status status-confirmed"></div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">11:30</div>
+                            <div class="agenda-info">
+                                <div class="agenda-title">Videoconferência MEC</div>
+                                <div class="agenda-meta">Microsoft Teams</div>
+                            </div>
+                            <div class="agenda-status status-pending"></div>
+                        </div>
+                        <div class="agenda-item">
+                            <div class="agenda-time">14:00</div>
+                            <div class="agenda-info">
+                                <div class="agenda-title">Visita Técnica - Escola Cidadã</div>
+                                <div class="agenda-meta">João Pessoa - PB</div>
+                            </div>
+                            <div class="agenda-status status-confirmed"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-card hero-card-float hero-card-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <span>12 Participantes</span>
+                </div>
+
+                <div class="hero-card hero-card-float hero-card-2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    <span>Confirmado</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="recursos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Recursos</span>
+                <h2 class="section-title">Tudo que você precisa para<br><span>gerenciar suas agendas</span></h2>
+                <p class="section-subtitle">
+                    Ferramentas desenvolvidas especialmente para atender às necessidades
+                    da administração pública estadual.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Calendário Integrado</h3>
+                    <p class="feature-desc">
+                        Visualize todos os compromissos em um único lugar. Sincronize com
+                        múltiplas agendas e evite conflitos de horários.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Notificações Inteligentes</h3>
+                    <p class="feature-desc">
+                        Receba lembretes automáticos por e-mail e SMS. Nunca mais perca
+                        um compromisso importante.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Gestão de Equipes</h3>
+                    <p class="feature-desc">
+                        Gerencie agendas de múltiplos colaboradores. Delegue compromissos
+                        e acompanhe a disponibilidade da equipe.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Videoconferências</h3>
+                    <p class="feature-desc">
+                        Integração com as principais plataformas de reuniões online.
+                        Crie links automaticamente ao agendar.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Relatórios Detalhados</h3>
+                    <p class="feature-desc">
+                        Gere relatórios completos de produtividade. Exporte dados
+                        para análise e tomada de decisões.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Segurança Avançada</h3>
+                    <p class="feature-desc">
+                        Dados protegidos com criptografia. Integração com Gov.br
+                        para autenticação segura.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="como-funciona">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Como Funciona</span>
+                <h2 class="section-title">Simples de usar,<br><span>poderoso nos resultados</span></h2>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Faça seu Login</h3>
+                        <p class="step-desc">
+                            Acesse com suas credenciais institucionais ou através
+                            da conta Gov.br para maior segurança.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Configure sua Agenda</h3>
+                        <p class="step-desc">
+                            Defina seus horários disponíveis, preferências de
+                            notificação e integre com outras ferramentas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Gerencie Compromissos</h3>
+                        <p class="step-desc">
+                            Crie, edite e acompanhe todos os seus agendamentos
+                            de forma intuitiva e eficiente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Pronto para começar?</h2>
+                <p class="cta-subtitle">
+                    Acesse agora e experimente a forma mais eficiente de
+                    gerenciar suas agendas.
+                </p>
+                <a href="index.html" class="btn btn-light btn-lg">
+                    <span>Acessar Sistema</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contato">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo logo-light">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>
+                        </svg>
+                        <div class="logo-text">
+                            <span class="logo-title">SEE-PB</span>
+                            <span class="logo-subtitle">Agendamento</span>
+                        </div>
+                    </a>
+                    <p class="footer-desc">
+                        Sistema oficial de agendamento da Secretaria de Estado
+                        da Educação da Paraíba.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Links Rápidos</h4>
+                    <nav>
+                        <a href="#recursos">Recursos</a>
+                        <a href="#como-funciona">Como Funciona</a>
+                        <a href="index.html">Acessar Sistema</a>
+                    </nav>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Institucional</h4>
+                    <nav>
+                        <a href="https://paraiba.pb.gov.br" target="_blank">Governo da Paraíba</a>
+                        <a href="https://paraiba.pb.gov.br/diretas/secretaria-da-educacao" target="_blank">Secretaria da Educação</a>
+                        <a href="#">Política de Privacidade</a>
+                    </nav>
+                </div>
+
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contato</h4>
+                    <address>
+                        <p>Centro Administrativo Estadual</p>
+                        <p>Av. João da Mata, 200 - Bloco 1</p>
+                        <p>Jaguaribe - João Pessoa/PB</p>
+                        <p>CEP: 58015-900</p>
+                        <p class="footer-phone">(83) 3612-5600</p>
+                    </address>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Secretaria de Estado da Educação da Paraíba. Todos os direitos reservados.</p>
+                <div class="footer-gov">
+                    <span>Governo do Estado da Paraíba</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/landing.js"></script>
+</body>
+</html>
