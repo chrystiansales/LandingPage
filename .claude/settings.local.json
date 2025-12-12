@@ -7,7 +7,8 @@
       "Bash(git branch:*)",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: responsividade alto nível profissional\n\n- CSS com clamp() para tipografia fluida\n- Variáveis responsivas (--space-*, --font-*)\n- Breakpoints: 1024px, 768px, 640px, 380px\n- Suporte landscape mobile\n- 100dvh para mobile browsers\n- Acessibilidade (aria-*, focus-visible)\n- Prefers-reduced-motion\n- Print styles\n- Semântica HTML5 (aside, main, header, footer, nav)\n- Open Graph meta tags\n- Favicon SVG inline\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: responsividade alto nível profissional\n\n- CSS com clamp() para tipografia fluida\n- Variáveis responsivas (--space-*, --font-*)\n- Breakpoints: 1024px, 768px, 640px, 380px\n- Suporte landscape mobile\n- 100dvh para mobile browsers\n- Acessibilidade (aria-*, focus-visible)\n- Prefers-reduced-motion\n- Print styles\n- Semântica HTML5 (aside, main, header, footer, nav)\n- Open Graph meta tags\n- Favicon SVG inline\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)"
     ]
   }
 }

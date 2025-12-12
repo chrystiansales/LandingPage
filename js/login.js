@@ -7,12 +7,24 @@
     'use strict';
 
     /* --------------------------------------------------------------------------
+       Configuration
+       -------------------------------------------------------------------------- */
+    const CONFIG = {
+        apiBaseUrl: '', // Deixe vazio para usar caminhos relativos
+        loginEndpoint: '/api/login',
+        dashboardUrl: '/dashboard',
+        govBrAuthUrl: '/auth/govbr',
+        errorTimeout: 5000
+    };
+
+    /* --------------------------------------------------------------------------
        DOM Elements
        -------------------------------------------------------------------------- */
     const loginForm = document.getElementById('loginForm');
     const passwordInput = document.getElementById('password');
     const passwordToggle = document.querySelector('.password-toggle');
     const eyeIcon = document.getElementById('eyeIcon');
+    const btnLogin = document.querySelector('.btn-login');
 
     /* --------------------------------------------------------------------------
        Icons SVG
@@ -33,9 +45,14 @@
        -------------------------------------------------------------------------- */
     function togglePassword() {
         const isPassword = passwordInput.type === 'password';
+        const toggle = document.querySelector('.password-toggle');
 
         passwordInput.type = isPassword ? 'text' : 'password';
         eyeIcon.innerHTML = isPassword ? icons.eyeClosed : icons.eyeOpen;
+
+        // Update aria-label
+        toggle.setAttribute('aria-label', isPassword ? 'Ocultar senha' : 'Mostrar senha');
+        toggle.setAttribute('data-visible', isPassword ? 'true' : 'false');
     }
 
     /* --------------------------------------------------------------------------
@@ -53,86 +70,151 @@
         return password.length >= 6;
     }
 
+    function clearFieldError(field) {
+        field.classList.remove('input-error');
+        const wrapper = field.closest('.form-group');
+        const errorMsg = wrapper.querySelector('.field-error');
+        if (errorMsg) errorMsg.remove();
+    }
+
+    function showFieldError(field, message) {
+        field.classList.add('input-error');
+        const wrapper = field.closest('.form-group');
+
+        // Remove erro anterior
+        const existingError = wrapper.querySelector('.field-error');
+        if (existingError) existingError.remove();
+
+        const errorSpan = document.createElement('span');
+        errorSpan.className = 'field-error';
+        errorSpan.textContent = message;
+        errorSpan.style.cssText = 'color: #dc2626; font-size: 12px; margin-top: 4px; display: block;';
+        wrapper.appendChild(errorSpan);
+    }
+
+    /* --------------------------------------------------------------------------
+       Loading State
+       -------------------------------------------------------------------------- */
+    function setLoading(isLoading) {
+        if (btnLogin) {
+            btnLogin.classList.toggle('loading', isLoading);
+            btnLogin.disabled = isLoading;
+            btnLogin.textContent = isLoading ? 'Entrando...' : 'Entrar no Sistema';
+        }
+    }
+
     /* --------------------------------------------------------------------------
        Form Submit Handler
        -------------------------------------------------------------------------- */
     function handleSubmit(event) {
         event.preventDefault();
 
-        const email = document.getElementById('email').value.trim();
+        const emailField = document.getElementById('email');
+        const email = emailField.value.trim();
         const password = passwordInput.value;
         const remember = document.querySelector('input[name="remember"]').checked;
 
+        // Limpa erros anteriores
+        clearFieldError(emailField);
+        clearFieldError(passwordInput);
+
         // Validação
-        if (!validateEmail(email)) {
-            showError('Por favor, insira um e-mail ou CPF válido.');
-            return;
+        let hasError = false;
+
+        if (!email) {
+            showFieldError(emailField, 'Campo obrigatório');
+            hasError = true;
+        } else if (!validateEmail(email)) {
+            showFieldError(emailField, 'E-mail ou CPF inválido');
+            hasError = true;
         }
 
-        if (!validatePassword(password)) {
-            showError('A senha deve ter pelo menos 6 caracteres.');
-            return;
+        if (!password) {
+            showFieldError(passwordInput, 'Campo obrigatório');
+            hasError = true;
+        } else if (!validatePassword(password)) {
+            showFieldError(passwordInput, 'Mínimo 6 caracteres');
+            hasError = true;
         }
 
-        // Dados para enviar ao Laravel
+        if (hasError) return;
+
+        // Dados para enviar
         const formData = {
             email: email,
             password: password,
             remember: remember
         };
 
-        // Aqui você integra com o Laravel via fetch ou axios
-        console.log('Login data:', formData);
-
-        // Exemplo de integração com Laravel:
-        // submitLogin(formData);
+        // Envia para o servidor
+        submitLogin(formData);
     }
 
     /* --------------------------------------------------------------------------
-       Laravel Integration (Template)
+       API Integration
        -------------------------------------------------------------------------- */
     async function submitLogin(data) {
+        setLoading(true);
+
         try {
-            const response = await fetch('/login', {
+            const response = await fetch(CONFIG.apiBaseUrl + CONFIG.loginEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(data)
             });
 
             const result = await response.json();
 
-            if (response.ok) {
-                // Redirecionar para dashboard
-                window.location.href = result.redirect || '/dashboard';
+            if (response.ok && result.success) {
+                // Salva token se retornado
+                if (result.token) {
+                    localStorage.setItem('authToken', result.token);
+                }
+
+                // Redireciona para dashboard
+                showSuccess('Login realizado com sucesso!');
+                setTimeout(() => {
+                    window.location.href = result.redirect || CONFIG.dashboardUrl;
+                }, 500);
             } else {
                 showError(result.message || 'Credenciais inválidas.');
             }
         } catch (error) {
             console.error('Login error:', error);
-            showError('Erro ao conectar com o servidor.');
+            showError('Erro ao conectar com o servidor. Tente novamente.');
+        } finally {
+            setLoading(false);
         }
     }
 
     /* --------------------------------------------------------------------------
-       Error Display
+       Messages Display
        -------------------------------------------------------------------------- */
     function showError(message) {
-        // Remove erro anterior se existir
-        const existingError = document.querySelector('.error-message');
-        if (existingError) {
-            existingError.remove();
+        showMessage(message, 'error');
+    }
+
+    function showSuccess(message) {
+        showMessage(message, 'success');
+    }
+
+    function showMessage(message, type) {
+        // Remove mensagem anterior se existir
+        const existingMsg = document.querySelector('.alert-message');
+        if (existingMsg) {
+            existingMsg.remove();
         }
 
-        // Cria elemento de erro
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.style.cssText = `
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #dc2626;
+        const isError = type === 'error';
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `alert-message alert-${type}`;
+        msgDiv.style.cssText = `
+            background: ${isError ? '#fef2f2' : '#f0fdf4'};
+            border: 1px solid ${isError ? '#fecaca' : '#bbf7d0'};
+            color: ${isError ? '#dc2626' : '#16a34a'};
             padding: 12px 16px;
             border-radius: 8px;
             font-size: 14px;
@@ -140,38 +222,107 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            animation: slideIn 0.3s ease;
         `;
-        errorDiv.innerHTML = `
+
+        const iconPath = isError
+            ? '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'
+            : '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+
+        msgDiv.innerHTML = `
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="8" x2="12" y2="12"/>
-                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                ${iconPath}
             </svg>
-            ${message}
+            <span>${message}</span>
         `;
 
         // Insere antes do formulário
-        loginForm.parentNode.insertBefore(errorDiv, loginForm);
+        const container = loginForm.closest('.login-container') || loginForm.parentNode;
+        container.insertBefore(msgDiv, loginForm);
 
-        // Remove após 5 segundos
-        setTimeout(() => {
-            errorDiv.remove();
-        }, 5000);
+        // Remove após timeout
+        if (type === 'error') {
+            setTimeout(() => {
+                msgDiv.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => msgDiv.remove(), 300);
+            }, CONFIG.errorTimeout);
+        }
     }
 
     /* --------------------------------------------------------------------------
        Gov.br Button Handler
        -------------------------------------------------------------------------- */
     function handleGovBrLogin() {
-        // Redirecionar para autenticação Gov.br
-        // window.location.href = '/auth/govbr';
-        console.log('Redirecionando para Gov.br...');
+        // Redireciona para autenticação Gov.br
+        window.location.href = CONFIG.govBrAuthUrl;
+    }
+
+    /* --------------------------------------------------------------------------
+       Keyboard Navigation
+       -------------------------------------------------------------------------- */
+    function handleKeyboard(event) {
+        // Enter em qualquer input submete o form
+        if (event.key === 'Enter' && event.target.tagName === 'INPUT') {
+            handleSubmit(event);
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       Input Masks (CPF)
+       -------------------------------------------------------------------------- */
+    function handleEmailInput(event) {
+        const value = event.target.value;
+
+        // Se começar com número, aplica máscara de CPF
+        if (/^\d/.test(value)) {
+            const numbers = value.replace(/\D/g, '').slice(0, 11);
+            let formatted = numbers;
+
+            if (numbers.length > 3) {
+                formatted = numbers.slice(0, 3) + '.' + numbers.slice(3);
+            }
+            if (numbers.length > 6) {
+                formatted = formatted.slice(0, 7) + '.' + numbers.slice(6);
+            }
+            if (numbers.length > 9) {
+                formatted = formatted.slice(0, 11) + '-' + numbers.slice(9);
+            }
+
+            event.target.value = formatted;
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       CSS Animations (inject once)
+       -------------------------------------------------------------------------- */
+    function injectStyles() {
+        if (document.getElementById('login-js-styles')) return;
+
+        const style = document.createElement('style');
+        style.id = 'login-js-styles';
+        style.textContent = `
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes slideOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-10px); }
+            }
+            .input-error {
+                border-color: #dc2626 !important;
+            }
+        `;
+        document.head.appendChild(style);
     }
 
     /* --------------------------------------------------------------------------
        Event Listeners
        -------------------------------------------------------------------------- */
     function init() {
+        // Inject styles
+        injectStyles();
+
         // Password toggle
         if (passwordToggle) {
             passwordToggle.addEventListener('click', togglePassword);
@@ -187,6 +338,21 @@
         if (govBtn) {
             govBtn.addEventListener('click', handleGovBrLogin);
         }
+
+        // Email/CPF input mask
+        const emailInput = document.getElementById('email');
+        if (emailInput) {
+            emailInput.addEventListener('input', handleEmailInput);
+            emailInput.addEventListener('focus', () => clearFieldError(emailInput));
+        }
+
+        // Password field clear error on focus
+        if (passwordInput) {
+            passwordInput.addEventListener('focus', () => clearFieldError(passwordInput));
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', handleKeyboard);
     }
 
     // Initialize when DOM is ready
